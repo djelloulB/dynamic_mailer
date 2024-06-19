@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Template 1",
+    "file": "emailtemplate.html"
+  },
+  {
+    "id": 2,
+    "name": "Template 2",
+    "file": "template2.html"
+  },
+  {
+    "id": 3,
+    "name": "template 3",
+    "file": "template3.html"
+  }
+]

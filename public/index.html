@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Emails</title>
+    <!-- Inclusion de TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/zsq6davmbn96ic4ggtgjelpcpu9tdogh32o9utmdnw063jf8/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script src="client.js"></script> <!-- Fichier JS pour les interactions client -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .section form {
+            display: flex;
+            flex-direction: column;
+        }
+        .section form div {
+            margin-bottom: 10px;
+        }
+        .section form label {
+            margin-bottom: 5px;
+        }
+        .section form input, .section form textarea, .section form select, .section form button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .section form button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        .section form button:hover {
+            background-color: #0056b3;
+        }
+        .user-list {
+            margin-top: 20px;
+        }
+        .user-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .user-list li {
+            background: #f4f4f4;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Section pour la création de templates -->
+        <div class="section" id="templateCreationSection">
+            <h2>Créer un Nouveau Template</h2>
+            <form id="saveTemplateForm">
+                <div>
+                    <label for="templateName">Nom du Template:</label><br>
+                    <input type="text" id="templateName" name="templateName" required>
+                </div>
+                <div>
+                    <label for="htmlTemplate">Éditeur de Template HTML:</label><br>
+                    <textarea id="htmlTemplate" name="htmlTemplate" rows="10" cols="80"></textarea>
+                </div>
+                <div>
+                    <button type="button" onclick="saveTemplate()">Enregistrer le Template</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Section pour le chargement et l'envoi des emails -->
+        <div class="section" id="emailSendingSection">
+            <h2>Envoyer des Emails</h2>
+            <div>
+                <label for="templateList">Sélectionner un Template:</label><br>
+                <select id="templateList" onchange="selectTemplate()">
+                    <!-- Options seront ajoutées par JavaScript -->
+                </select>
+            </div>
+            <form id="sendEmailForm" method="post" action="/send-emails" enctype="multipart/form-data">
+                <input type="hidden" id="htmlContent" name="htmlTemplate">
+                <div>
+                    <label for="csvFile">Coisir une liste de diffusion: Fichier CSV:</label><br>
+                    <input type="file" id="csvFile" name="csvFile" accept=".csv" required onchange="loadCsvFile()">
+                </div>
+                <div id="attachmentsSection">
+                    <label>Ajouter des Pièces Jointes:</label><br>
+                    <input type="file" name="attachments" id="attachments" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png">
+                </div>
+                <div>
+                    <button type="button" onclick="submitEmailForm()">Envoyer Email</button>
+                </div>
+            </form>
+            <div class="user-list" id="userList">
+                <h3>Liste des Utilisateurs</h3>
+                <ul id="userListItems">
+                    <!-- Liste des utilisateurs sera ajoutée par JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        tinymce.init({
+            selector: '#htmlTemplate',
+            height: 300,
+            menubar: false,
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | code | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+
+        window.onload = () => {
+            loadTemplates();
+        };
+    </script>
+</body>
+</html>
