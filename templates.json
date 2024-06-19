@@ -13,5 +13,10 @@
     "id": 3,
     "name": "template 3",
     "file": "template3.html"
+  },
+  {
+    "id": 4,
+    "name": "example 1",
+    "file": "template4.html"
   }
 ]
