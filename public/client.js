@@ -55,26 +55,6 @@ async function saveTemplate() {
 }
 
 // Fonction pour soumettre le formulaire et envoyer l'email
-// async function submitEmailForm() {
-//     const templateList = document.getElementById('templateList');
-//     const selectedTemplate = templateList.value;
-
-//     if (selectedTemplate) {
-//         const response = await fetch(`/get-template-content/${selectedTemplate}`);
-//         const content = await response.text();
-        
-//         let templatesResponse = await fetch('/get-templates');
-//         let templates = await templatesResponse.json();
-//         let templateFile = templates.find(template => template.file === selectedTemplate).file;
-
-//         document.getElementById('htmlContent').value = templateFile;
-
-//         document.getElementById('sendEmailForm').submit();
-//     } else {
-//         alert('Veuillez sélectionner un template');
-//     }
-// }
-// Fonction pour soumettre le formulaire et envoyer l'email
 async function submitEmailForm() {
     const templateList = document.getElementById('templateList');
     const selectedTemplate = templateList.value;

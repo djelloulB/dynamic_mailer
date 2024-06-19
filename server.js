@@ -16,28 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Servir les fichiers statiques
 app.use(express.static('public'));
 
-// Route pour envoyer les emails
-// app.post('/send-emails', upload.single('csvFile'), async (req, res) => {
-//     try {
-//         const htmlTemplateName = req.body.htmlTemplate;
-
-//         console.log("Template fileName : " + htmlTemplateName);
-//         const csvFilePath = req.file.path;
-
-//         // Lire le contenu du fichier HTML
-//         const htmlTemplate = fs.readFileSync(path.join(__dirname, 'templates', htmlTemplateName), 'utf8');
-
-//         // Lire les utilisateurs depuis le fichier CSV
-//         const users = await fp.readCsv(csvFilePath);
-
-//         // Envoyer les emails
-//         await mailer.sendMail(users, htmlTemplate);
-
-//         res.send('Emails envoyés avec succès !');
-//     } catch (error) {
-//         res.status(500).send('Erreur lors de l\'envoi des emails: ' + error.message);
-//     }
-// });
 // Route pour envoyer les emails avec pièces jointes
 app.post('/send-emails', upload.fields([
     { name: 'attachments', maxCount: 10 },
@@ -116,7 +94,7 @@ app.post('/upload-csv', upload.single('csvFile'), async (req, res) => {
     try {
         const csvFilePath = req.file.path;
         const users = await fp.readCsv(csvFilePath);
-        console.log(users);
+        
         res.json(users);
     } catch (error) {
         res.status(500).send('Erreur lors du chargement du fichier CSV: ' + error.message);
