@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "emailling"
+    "emailling", 
+    "Express", 
+    "node Mailer"
   ],
   "author": "db",
   "license": "ISC",

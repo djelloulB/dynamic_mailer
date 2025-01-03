@@ -18,5 +18,10 @@
     "id": 4,
     "name": "example 1",
     "file": "template4.html"
+  },
+  {
+    "id": 5,
+    "name": "Template avec logo en entête",
+    "file": "template5.html"
   }
 ]
